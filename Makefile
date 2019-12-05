@@ -117,28 +117,83 @@ C_SRC += stm32f1xx_ll_usb.c
 C_SRC += stm32f1xx_ll_utils.c
 
 # --- INCLUDE DIRECTORIES ---
-INC  = ./inc
-INC += ./cmsis/inc
+INC  = -I ./inc
+INC += -I ./cmsis/inc
 
 # ------------------------------------------------------------------------------
 
 OBJ = $(C_SRC:.c=.o)
 
+TARGET = NOT_SET
+FILEOUT = $(BINDIR)/$(TARGET)/$(PROJECTNAME).a
+
 .PRECIOUS: $(SRCDIR)/%.c
 .PRECIOUS: $(BINDIR)/%.o
 
-.PHONY: clean \
+.PHONY:	clean \
+		buildinfo \
 		STM32F100xB \
-		STM32F100xB_CFG
+		STM32F100xE \
+		STM32F101x6 \
+		STM32F101xB \
+		STM32F101xE \
+		STM32F101xG \
+		STM32F102x6 \
+		STM32F102xB \
+		STM32F103x6 \
+		STM32F103xB \
+		STM32F103xE \
+		STM32F103xG \
+		STM32F105xC \
+		STM32F107xC
 
-all: STM32F100xB
+all: 	STM32F100xB \
+		STM32F100xE \
+		STM32F101x6 \
+		STM32F101xB \
+		STM32F101xE \
+		STM32F101xG \
+		STM32F102x6 \
+		STM32F102xB \
+		STM32F103x6 \
+		STM32F103xB \
+		STM32F103xE \
+		STM32F103xG \
+		STM32F105xC \
+		STM32F107xC
 
-STM32F100xB: STM32F100xB_CFG $(BINDIR)/STM32F100xB/$(PROJECTNAME).a
+STM32F100xB: TARGET = STM32F100xB
+STM32F100xE: TARGET = STM32F100xE
+STM32F101x6: TARGET = STM32F101x6
+STM32F101xB: TARGET = STM32F101xB
+STM32F101xE: TARGET = STM32F101xE
+STM32F101xG: TARGET = STM32F101xG
+STM32F102x6: TARGET = STM32F102x6
+STM32F102xB: TARGET = STM32F102xB
+STM32F103x6: TARGET = STM32F103x6
+STM32F103xB: TARGET = STM32F103xB
+STM32F103xE: TARGET = STM32F103xE
+STM32F103xG: TARGET = STM32F103xG
+STM32F105xC: TARGET = STM32F105xC
+STM32F107xC: TARGET = STM32F107xC
 
-STM32F100xB_CFG:
-	@mkdir -p $(BINDIR)/STM32F100xB
-	C_DEFS += -DSTM32F100xB
+STM32F100xB: $(FILEOUT)
+STM32F100xE: $(FILEOUT)
+STM32F101x6: $(FILEOUT)
+STM32F101xB: $(FILEOUT)
+STM32F101xE: $(FILEOUT)
+STM32F101xG: $(FILEOUT)
+STM32F102x6: $(FILEOUT)
+STM32F102xB: $(FILEOUT)
+STM32F103x6: $(FILEOUT)
+STM32F103xB: $(FILEOUT)
+STM32F103xE: $(FILEOUT)
+STM32F103xG: $(FILEOUT)
+STM32F105xC: $(FILEOUT)
+STM32F107xC: $(FILEOUT)
 
+buildinfo:
+	@echo "[$(PROJECTNAME)] Building target $(TARGET)..."
 
 clean:
 	@echo "[$(PROJECTNAME)] Cleaning up..."
@@ -148,7 +203,14 @@ clean:
 $(BINDIR)/%.o: $(SRCDIR)/%.c | $(BINDIR) $(SRCDIR)
 	@if ! test -d $(dir $@); then mkdir -p $(dir $@); echo "[$(PROJECTNAME)] Creating subdirectory $(dir $@) for output binaries."; fi
 	@echo "[$(PROJECTNAME)] Compiling $< -> $@"
-	@$(GCC_CC) -c $(GCC_CC_FLAGS) $(INC) $< -o $@
+	@$(GCC_CC) -c $(GCC_CC_FLAGS) -D$(TARGET) $(INC) $< -o $@
+
+$(BINDIR)/%.a: $(addprefix $(BINDIR)/, $(OBJ)) | $(BINDIR)
+	@echo "[$(PROJECTNAME)] Archiving library $@..."
+	@if ! test -d $(dir $@); then mkdir -p $(dir $@); fi
+	@if test -f $@; then rm $@; fi
+	@$(AR) -rcs $@ $(addprefix $(BINDIR)/, $(OBJ))
+	@echo "[$(PROJECTNAME)] Archived."
 
 $(BINDIR):
 	@echo "[$(PROJECTNAME)] Creating folder $(BINDIR)..."
