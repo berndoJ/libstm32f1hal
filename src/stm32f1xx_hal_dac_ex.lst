@@ -1,0 +1,254 @@
+ARM GAS  /tmp/ccZzwtcj.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 4
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"stm32f1xx_hal_dac_ex.c"
+  12              		.section	.text.HAL_DACEx_TriangleWaveGenerate,"ax",%progbits
+  13              		.align	1
+  14              		.global	HAL_DACEx_TriangleWaveGenerate
+  15              		.syntax unified
+  16              		.thumb
+  17              		.thumb_func
+  18              		.fpu softvfp
+  20              	HAL_DACEx_TriangleWaveGenerate:
+  21              		@ args = 0, pretend = 0, frame = 0
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23 0000 4379     		ldrb	r3, [r0, #5]	@ zero_extendqisi2
+  24 0002 30B5     		push	{r4, r5, lr}
+  25 0004 012B     		cmp	r3, #1
+  26 0006 4FF00203 		mov	r3, #2
+  27 000a 12D0     		beq	.L3
+  28 000c 4FF47C64 		mov	r4, #4032
+  29 0010 0568     		ldr	r5, [r0]
+  30 0012 0371     		strb	r3, [r0, #4]
+  31 0014 2B68     		ldr	r3, [r5]
+  32 0016 01F01001 		and	r1, r1, #16
+  33 001a 8C40     		lsls	r4, r4, r1
+  34 001c 42F08002 		orr	r2, r2, #128
+  35 0020 23EA0403 		bic	r3, r3, r4
+  36 0024 8A40     		lsls	r2, r2, r1
+  37 0026 1A43     		orrs	r2, r2, r3
+  38 0028 0123     		movs	r3, #1
+  39 002a 2A60     		str	r2, [r5]
+  40 002c 0371     		strb	r3, [r0, #4]
+  41 002e 0023     		movs	r3, #0
+  42 0030 4371     		strb	r3, [r0, #5]
+  43              	.L3:
+  44 0032 1846     		mov	r0, r3
+  45 0034 30BD     		pop	{r4, r5, pc}
+  47              		.section	.text.HAL_DACEx_NoiseWaveGenerate,"ax",%progbits
+  48              		.align	1
+  49              		.global	HAL_DACEx_NoiseWaveGenerate
+  50              		.syntax unified
+  51              		.thumb
+  52              		.thumb_func
+  53              		.fpu softvfp
+  55              	HAL_DACEx_NoiseWaveGenerate:
+  56              		@ args = 0, pretend = 0, frame = 0
+  57              		@ frame_needed = 0, uses_anonymous_args = 0
+  58 0000 4379     		ldrb	r3, [r0, #5]	@ zero_extendqisi2
+  59 0002 30B5     		push	{r4, r5, lr}
+  60 0004 012B     		cmp	r3, #1
+ARM GAS  /tmp/ccZzwtcj.s 			page 2
+
+
+  61 0006 4FF00203 		mov	r3, #2
+  62 000a 12D0     		beq	.L6
+  63 000c 4FF47C64 		mov	r4, #4032
+  64 0010 0568     		ldr	r5, [r0]
+  65 0012 0371     		strb	r3, [r0, #4]
+  66 0014 2B68     		ldr	r3, [r5]
+  67 0016 01F01001 		and	r1, r1, #16
+  68 001a 8C40     		lsls	r4, r4, r1
+  69 001c 42F04002 		orr	r2, r2, #64
+  70 0020 23EA0403 		bic	r3, r3, r4
+  71 0024 8A40     		lsls	r2, r2, r1
+  72 0026 1A43     		orrs	r2, r2, r3
+  73 0028 0123     		movs	r3, #1
+  74 002a 2A60     		str	r2, [r5]
+  75 002c 0371     		strb	r3, [r0, #4]
+  76 002e 0023     		movs	r3, #0
+  77 0030 4371     		strb	r3, [r0, #5]
+  78              	.L6:
+  79 0032 1846     		mov	r0, r3
+  80 0034 30BD     		pop	{r4, r5, pc}
+  82              		.section	.text.HAL_DACEx_DualSetValue,"ax",%progbits
+  83              		.align	1
+  84              		.global	HAL_DACEx_DualSetValue
+  85              		.syntax unified
+  86              		.thumb
+  87              		.thumb_func
+  88              		.fpu softvfp
+  90              	HAL_DACEx_DualSetValue:
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93              		@ link register save eliminated.
+  94 0000 0829     		cmp	r1, #8
+  95 0002 0CBF     		ite	eq
+  96 0004 42EA0322 		orreq	r2, r2, r3, lsl #8
+  97 0008 42EA0342 		orrne	r2, r2, r3, lsl #16
+  98 000c 0368     		ldr	r3, [r0]
+  99 000e 0020     		movs	r0, #0
+ 100 0010 2033     		adds	r3, r3, #32
+ 101 0012 CA50     		str	r2, [r1, r3]
+ 102 0014 7047     		bx	lr
+ 104              		.section	.text.HAL_DACEx_ConvCpltCallbackCh2,"ax",%progbits
+ 105              		.align	1
+ 106              		.weak	HAL_DACEx_ConvCpltCallbackCh2
+ 107              		.syntax unified
+ 108              		.thumb
+ 109              		.thumb_func
+ 110              		.fpu softvfp
+ 112              	HAL_DACEx_ConvCpltCallbackCh2:
+ 113              		@ args = 0, pretend = 0, frame = 0
+ 114              		@ frame_needed = 0, uses_anonymous_args = 0
+ 115              		@ link register save eliminated.
+ 116 0000 7047     		bx	lr
+ 118              		.section	.text.HAL_DACEx_ConvHalfCpltCallbackCh2,"ax",%progbits
+ 119              		.align	1
+ 120              		.weak	HAL_DACEx_ConvHalfCpltCallbackCh2
+ 121              		.syntax unified
+ 122              		.thumb
+ARM GAS  /tmp/ccZzwtcj.s 			page 3
+
+
+ 123              		.thumb_func
+ 124              		.fpu softvfp
+ 126              	HAL_DACEx_ConvHalfCpltCallbackCh2:
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129              		@ link register save eliminated.
+ 130 0000 7047     		bx	lr
+ 132              		.section	.text.HAL_DACEx_ErrorCallbackCh2,"ax",%progbits
+ 133              		.align	1
+ 134              		.weak	HAL_DACEx_ErrorCallbackCh2
+ 135              		.syntax unified
+ 136              		.thumb
+ 137              		.thumb_func
+ 138              		.fpu softvfp
+ 140              	HAL_DACEx_ErrorCallbackCh2:
+ 141              		@ args = 0, pretend = 0, frame = 0
+ 142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 143              		@ link register save eliminated.
+ 144 0000 7047     		bx	lr
+ 146              		.section	.text.HAL_DACEx_DMAUnderrunCallbackCh2,"ax",%progbits
+ 147              		.align	1
+ 148              		.weak	HAL_DACEx_DMAUnderrunCallbackCh2
+ 149              		.syntax unified
+ 150              		.thumb
+ 151              		.thumb_func
+ 152              		.fpu softvfp
+ 154              	HAL_DACEx_DMAUnderrunCallbackCh2:
+ 155              		@ args = 0, pretend = 0, frame = 0
+ 156              		@ frame_needed = 0, uses_anonymous_args = 0
+ 157              		@ link register save eliminated.
+ 158 0000 7047     		bx	lr
+ 160              		.section	.text.HAL_DACEx_DualGetValue,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	HAL_DACEx_DualGetValue
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 166              		.fpu softvfp
+ 168              	HAL_DACEx_DualGetValue:
+ 169              		@ args = 0, pretend = 0, frame = 0
+ 170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 171              		@ link register save eliminated.
+ 172 0000 0368     		ldr	r3, [r0]
+ 173 0002 DA6A     		ldr	r2, [r3, #44]
+ 174 0004 186B     		ldr	r0, [r3, #48]
+ 175 0006 42EA0040 		orr	r0, r2, r0, lsl #16
+ 176 000a 7047     		bx	lr
+ 178              		.section	.text.DAC_DMAConvCpltCh2,"ax",%progbits
+ 179              		.align	1
+ 180              		.global	DAC_DMAConvCpltCh2
+ 181              		.syntax unified
+ 182              		.thumb
+ 183              		.thumb_func
+ 184              		.fpu softvfp
+ 186              	DAC_DMAConvCpltCh2:
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccZzwtcj.s 			page 4
+
+
+ 189 0000 10B5     		push	{r4, lr}
+ 190 0002 446A     		ldr	r4, [r0, #36]
+ 191 0004 2046     		mov	r0, r4
+ 192 0006 FFF7FEFF 		bl	HAL_DACEx_ConvCpltCallbackCh2
+ 193 000a 0123     		movs	r3, #1
+ 194 000c 2371     		strb	r3, [r4, #4]
+ 195 000e 10BD     		pop	{r4, pc}
+ 197              		.section	.text.DAC_DMAHalfConvCpltCh2,"ax",%progbits
+ 198              		.align	1
+ 199              		.global	DAC_DMAHalfConvCpltCh2
+ 200              		.syntax unified
+ 201              		.thumb
+ 202              		.thumb_func
+ 203              		.fpu softvfp
+ 205              	DAC_DMAHalfConvCpltCh2:
+ 206              		@ args = 0, pretend = 0, frame = 0
+ 207              		@ frame_needed = 0, uses_anonymous_args = 0
+ 208 0000 08B5     		push	{r3, lr}
+ 209 0002 406A     		ldr	r0, [r0, #36]
+ 210 0004 FFF7FEFF 		bl	HAL_DACEx_ConvHalfCpltCallbackCh2
+ 211 0008 08BD     		pop	{r3, pc}
+ 213              		.section	.text.DAC_DMAErrorCh2,"ax",%progbits
+ 214              		.align	1
+ 215              		.global	DAC_DMAErrorCh2
+ 216              		.syntax unified
+ 217              		.thumb
+ 218              		.thumb_func
+ 219              		.fpu softvfp
+ 221              	DAC_DMAErrorCh2:
+ 222              		@ args = 0, pretend = 0, frame = 0
+ 223              		@ frame_needed = 0, uses_anonymous_args = 0
+ 224 0000 10B5     		push	{r4, lr}
+ 225 0002 446A     		ldr	r4, [r0, #36]
+ 226 0004 2369     		ldr	r3, [r4, #16]
+ 227 0006 2046     		mov	r0, r4
+ 228 0008 43F00403 		orr	r3, r3, #4
+ 229 000c 2361     		str	r3, [r4, #16]
+ 230 000e FFF7FEFF 		bl	HAL_DACEx_ErrorCallbackCh2
+ 231 0012 0123     		movs	r3, #1
+ 232 0014 2371     		strb	r3, [r4, #4]
+ 233 0016 10BD     		pop	{r4, pc}
+ 235              		.ident	"GCC: (15:6.3.1+svn253039-1build1) 6.3.1 20170620"
+ARM GAS  /tmp/ccZzwtcj.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32f1xx_hal_dac_ex.c
+     /tmp/ccZzwtcj.s:13     .text.HAL_DACEx_TriangleWaveGenerate:0000000000000000 $t
+     /tmp/ccZzwtcj.s:20     .text.HAL_DACEx_TriangleWaveGenerate:0000000000000000 HAL_DACEx_TriangleWaveGenerate
+     /tmp/ccZzwtcj.s:48     .text.HAL_DACEx_NoiseWaveGenerate:0000000000000000 $t
+     /tmp/ccZzwtcj.s:55     .text.HAL_DACEx_NoiseWaveGenerate:0000000000000000 HAL_DACEx_NoiseWaveGenerate
+     /tmp/ccZzwtcj.s:83     .text.HAL_DACEx_DualSetValue:0000000000000000 $t
+     /tmp/ccZzwtcj.s:90     .text.HAL_DACEx_DualSetValue:0000000000000000 HAL_DACEx_DualSetValue
+     /tmp/ccZzwtcj.s:105    .text.HAL_DACEx_ConvCpltCallbackCh2:0000000000000000 $t
+     /tmp/ccZzwtcj.s:112    .text.HAL_DACEx_ConvCpltCallbackCh2:0000000000000000 HAL_DACEx_ConvCpltCallbackCh2
+     /tmp/ccZzwtcj.s:119    .text.HAL_DACEx_ConvHalfCpltCallbackCh2:0000000000000000 $t
+     /tmp/ccZzwtcj.s:126    .text.HAL_DACEx_ConvHalfCpltCallbackCh2:0000000000000000 HAL_DACEx_ConvHalfCpltCallbackCh2
+     /tmp/ccZzwtcj.s:133    .text.HAL_DACEx_ErrorCallbackCh2:0000000000000000 $t
+     /tmp/ccZzwtcj.s:140    .text.HAL_DACEx_ErrorCallbackCh2:0000000000000000 HAL_DACEx_ErrorCallbackCh2
+     /tmp/ccZzwtcj.s:147    .text.HAL_DACEx_DMAUnderrunCallbackCh2:0000000000000000 $t
+     /tmp/ccZzwtcj.s:154    .text.HAL_DACEx_DMAUnderrunCallbackCh2:0000000000000000 HAL_DACEx_DMAUnderrunCallbackCh2
+     /tmp/ccZzwtcj.s:161    .text.HAL_DACEx_DualGetValue:0000000000000000 $t
+     /tmp/ccZzwtcj.s:168    .text.HAL_DACEx_DualGetValue:0000000000000000 HAL_DACEx_DualGetValue
+     /tmp/ccZzwtcj.s:179    .text.DAC_DMAConvCpltCh2:0000000000000000 $t
+     /tmp/ccZzwtcj.s:186    .text.DAC_DMAConvCpltCh2:0000000000000000 DAC_DMAConvCpltCh2
+     /tmp/ccZzwtcj.s:198    .text.DAC_DMAHalfConvCpltCh2:0000000000000000 $t
+     /tmp/ccZzwtcj.s:205    .text.DAC_DMAHalfConvCpltCh2:0000000000000000 DAC_DMAHalfConvCpltCh2
+     /tmp/ccZzwtcj.s:214    .text.DAC_DMAErrorCh2:0000000000000000 $t
+     /tmp/ccZzwtcj.s:221    .text.DAC_DMAErrorCh2:0000000000000000 DAC_DMAErrorCh2
+
+NO UNDEFINED SYMBOLS
