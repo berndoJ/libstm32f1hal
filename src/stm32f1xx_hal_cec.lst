@@ -1,22 +1,514 @@
-ARM GAS  /tmp/cc91w0xm.s 			page 1
+ARM GAS  /tmp/ccNWu0Lf.s 			page 1
 
 
-   1              		.cpu cortex-m3
-   2              		.eabi_attribute 20, 1
-   3              		.eabi_attribute 21, 1
-   4              		.eabi_attribute 23, 3
-   5              		.eabi_attribute 24, 1
-   6              		.eabi_attribute 25, 1
-   7              		.eabi_attribute 26, 1
-   8              		.eabi_attribute 30, 4
-   9              		.eabi_attribute 34, 1
-  10              		.eabi_attribute 18, 4
-  11              		.file	"stm32f1xx_hal_cec.c"
-  12              		.ident	"GCC: (15:6.3.1+svn253039-1build1) 6.3.1 20170620"
-ARM GAS  /tmp/cc91w0xm.s 			page 2
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f1xx_hal_cec.c"
+  15              		.section	.text.HAL_CEC_SetDeviceAddress,"ax",%progbits
+  16              		.align	1
+  17              		.global	HAL_CEC_SetDeviceAddress
+  18              		.thumb
+  19              		.thumb_func
+  21              	HAL_CEC_SetDeviceAddress:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 C369     		ldr	r3, [r0, #28]
+  26 0002 154A     		ldr	r2, .L9
+  27 0004 23F07F43 		bic	r3, r3, #-16777216
+  28 0008 23F0FF03 		bic	r3, r3, #255
+  29 000c 9342     		cmp	r3, r2
+  30 000e 20D1     		bne	.L6
+  31 0010 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+  32 0012 012B     		cmp	r3, #1
+  33 0014 1DD0     		beq	.L6
+  34 0016 0123     		movs	r3, #1
+  35 0018 0377     		strb	r3, [r0, #28]
+  36 001a 2423     		movs	r3, #36
+  37 001c 4377     		strb	r3, [r0, #29]
+  38 001e 0368     		ldr	r3, [r0]
+  39 0020 1A68     		ldr	r2, [r3]
+  40 0022 22F00102 		bic	r2, r2, #1
+  41 0026 1A60     		str	r2, [r3]
+  42 0028 5A68     		ldr	r2, [r3, #4]
+  43 002a 21B1     		cbz	r1, .L3
+  44 002c 8189     		ldrh	r1, [r0, #12]
+  45 002e 22F00F02 		bic	r2, r2, #15
+  46 0032 0A43     		orrs	r2, r2, r1
+  47 0034 01E0     		b	.L7
+  48              	.L3:
+  49 0036 22F00F02 		bic	r2, r2, #15
+  50              	.L7:
+  51 003a 5A60     		str	r2, [r3, #4]
+  52 003c 1968     		ldr	r1, [r3]
+  53 003e 2022     		movs	r2, #32
+  54 0040 4277     		strb	r2, [r0, #29]
+  55 0042 41F00101 		orr	r1, r1, #1
+  56 0046 0022     		movs	r2, #0
+  57 0048 0262     		str	r2, [r0, #32]
+  58 004a 0277     		strb	r2, [r0, #28]
+ARM GAS  /tmp/ccNWu0Lf.s 			page 2
+
+
+  59 004c 1960     		str	r1, [r3]
+  60 004e 1046     		mov	r0, r2
+  61 0050 7047     		bx	lr
+  62              	.L6:
+  63 0052 0220     		movs	r0, #2
+  64 0054 7047     		bx	lr
+  65              	.L10:
+  66 0056 00BF     		.align	2
+  67              	.L9:
+  68 0058 00202000 		.word	2105344
+  70              		.section	.text.HAL_CEC_MspInit,"ax",%progbits
+  71              		.align	1
+  72              		.weak	HAL_CEC_MspInit
+  73              		.thumb
+  74              		.thumb_func
+  76              	HAL_CEC_MspInit:
+  77              		@ args = 0, pretend = 0, frame = 0
+  78              		@ frame_needed = 0, uses_anonymous_args = 0
+  79              		@ link register save eliminated.
+  80 0000 7047     		bx	lr
+  82              		.section	.text.HAL_CEC_Init,"ax",%progbits
+  83              		.align	1
+  84              		.global	HAL_CEC_Init
+  85              		.thumb
+  86              		.thumb_func
+  88              	HAL_CEC_Init:
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
+  91 0000 70B5     		push	{r4, r5, r6, lr}
+  92 0002 0446     		mov	r4, r0
+  93 0004 0028     		cmp	r0, #0
+  94 0006 3BD0     		beq	.L16
+  95 0008 0369     		ldr	r3, [r0, #16]
+  96 000a 002B     		cmp	r3, #0
+  97 000c 38D0     		beq	.L16
+  98 000e 437F     		ldrb	r3, [r0, #29]	@ zero_extendqisi2
+  99 0010 13B9     		cbnz	r3, .L14
+ 100 0012 0377     		strb	r3, [r0, #28]
+ 101 0014 FFF7FEFF 		bl	HAL_CEC_MspInit
+ 102              	.L14:
+ 103 0018 2568     		ldr	r5, [r4]
+ 104 001a 2423     		movs	r3, #36
+ 105 001c 6377     		strb	r3, [r4, #29]
+ 106 001e 2B68     		ldr	r3, [r5]
+ 107 0020 A168     		ldr	r1, [r4, #8]
+ 108 0022 23F00103 		bic	r3, r3, #1
+ 109 0026 2B60     		str	r3, [r5]
+ 110 0028 2B68     		ldr	r3, [r5]
+ 111 002a 6268     		ldr	r2, [r4, #4]
+ 112 002c 23F00C03 		bic	r3, r3, #12
+ 113 0030 0A43     		orrs	r2, r2, r1
+ 114 0032 1343     		orrs	r3, r3, r2
+ 115 0034 2B60     		str	r3, [r5]
+ 116 0036 6B68     		ldr	r3, [r5, #4]
+ 117 0038 A289     		ldrh	r2, [r4, #12]
+ 118 003a 23F00F03 		bic	r3, r3, #15
+ 119 003e 1343     		orrs	r3, r3, r2
+ARM GAS  /tmp/ccNWu0Lf.s 			page 3
+
+
+ 120 0040 6B60     		str	r3, [r5, #4]
+ 121 0042 AE68     		ldr	r6, [r5, #8]
+ 122 0044 FFF7FEFF 		bl	HAL_RCC_GetPCLK1Freq
+ 123 0048 0E4B     		ldr	r3, .L17
+ 124 004a 3222     		movs	r2, #50
+ 125 004c B0FBF3F0 		udiv	r0, r0, r3
+ 126 0050 02FB00F3 		mul	r3, r2, r0
+ 127 0054 581E     		subs	r0, r3, #1
+ 128 0056 26F47F53 		bic	r3, r6, #16320
+ 129 005a 23F03F03 		bic	r3, r3, #63
+ 130 005e 0343     		orrs	r3, r3, r0
+ 131 0060 AB60     		str	r3, [r5, #8]
+ 132 0062 2368     		ldr	r3, [r4]
+ 133 0064 0020     		movs	r0, #0
+ 134 0066 1A68     		ldr	r2, [r3]
+ 135 0068 42F00202 		orr	r2, r2, #2
+ 136 006c 1A60     		str	r2, [r3]
+ 137 006e 1A68     		ldr	r2, [r3]
+ 138 0070 42F00102 		orr	r2, r2, #1
+ 139 0074 1A60     		str	r2, [r3]
+ 140 0076 2023     		movs	r3, #32
+ 141 0078 2062     		str	r0, [r4, #32]
+ 142 007a 6377     		strb	r3, [r4, #29]
+ 143 007c A377     		strb	r3, [r4, #30]
+ 144 007e 70BD     		pop	{r4, r5, r6, pc}
+ 145              	.L16:
+ 146 0080 0120     		movs	r0, #1
+ 147 0082 70BD     		pop	{r4, r5, r6, pc}
+ 148              	.L18:
+ 149              		.align	2
+ 150              	.L17:
+ 151 0084 40420F00 		.word	1000000
+ 153              		.section	.text.HAL_CEC_MspDeInit,"ax",%progbits
+ 154              		.align	1
+ 155              		.weak	HAL_CEC_MspDeInit
+ 156              		.thumb
+ 157              		.thumb_func
+ 159              	HAL_CEC_MspDeInit:
+ 160              		@ args = 0, pretend = 0, frame = 0
+ 161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162              		@ link register save eliminated.
+ 163 0000 7047     		bx	lr
+ 165              		.section	.text.HAL_CEC_DeInit,"ax",%progbits
+ 166              		.align	1
+ 167              		.global	HAL_CEC_DeInit
+ 168              		.thumb
+ 169              		.thumb_func
+ 171              	HAL_CEC_DeInit:
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174 0000 10B5     		push	{r4, lr}
+ 175 0002 0446     		mov	r4, r0
+ 176 0004 90B1     		cbz	r0, .L22
+ 177 0006 2423     		movs	r3, #36
+ 178 0008 4377     		strb	r3, [r0, #29]
+ 179 000a FFF7FEFF 		bl	HAL_CEC_MspDeInit
+ 180 000e 084B     		ldr	r3, .L23
+ARM GAS  /tmp/ccNWu0Lf.s 			page 4
+
+
+ 181 0010 0020     		movs	r0, #0
+ 182 0012 1A69     		ldr	r2, [r3, #16]
+ 183 0014 42F08042 		orr	r2, r2, #1073741824
+ 184 0018 1A61     		str	r2, [r3, #16]
+ 185 001a 1A69     		ldr	r2, [r3, #16]
+ 186 001c 22F08042 		bic	r2, r2, #1073741824
+ 187 0020 1A61     		str	r2, [r3, #16]
+ 188 0022 2062     		str	r0, [r4, #32]
+ 189 0024 6077     		strb	r0, [r4, #29]
+ 190 0026 A077     		strb	r0, [r4, #30]
+ 191 0028 2077     		strb	r0, [r4, #28]
+ 192 002a 10BD     		pop	{r4, pc}
+ 193              	.L22:
+ 194 002c 0120     		movs	r0, #1
+ 195 002e 10BD     		pop	{r4, pc}
+ 196              	.L24:
+ 197              		.align	2
+ 198              	.L23:
+ 199 0030 00100240 		.word	1073876992
+ 201              		.section	.text.HAL_CEC_Transmit_IT,"ax",%progbits
+ 202              		.align	1
+ 203              		.global	HAL_CEC_Transmit_IT
+ 204              		.thumb
+ 205              		.thumb_func
+ 207              	HAL_CEC_Transmit_IT:
+ 208              		@ args = 4, pretend = 0, frame = 0
+ 209              		@ frame_needed = 0, uses_anonymous_args = 0
+ 210 0000 30B5     		push	{r4, r5, lr}
+ 211 0002 457F     		ldrb	r5, [r0, #29]	@ zero_extendqisi2
+ 212 0004 039C     		ldr	r4, [sp, #12]
+ 213 0006 202D     		cmp	r5, #32
+ 214 0008 20D1     		bne	.L31
+ 215 000a 03B9     		cbnz	r3, .L27
+ 216 000c E4B9     		cbnz	r4, .L30
+ 217              	.L27:
+ 218 000e 057F     		ldrb	r5, [r0, #28]	@ zero_extendqisi2
+ 219 0010 012D     		cmp	r5, #1
+ 220 0012 1BD0     		beq	.L31
+ 221 0014 4361     		str	r3, [r0, #20]
+ 222 0016 2123     		movs	r3, #33
+ 223 0018 4377     		strb	r3, [r0, #29]
+ 224 001a 42EA0112 		orr	r2, r2, r1, lsl #4
+ 225 001e 0368     		ldr	r3, [r0]
+ 226 0020 0025     		movs	r5, #0
+ 227 0022 D2B2     		uxtb	r2, r2
+ 228 0024 0562     		str	r5, [r0, #32]
+ 229 0026 0483     		strh	r4, [r0, #24]	@ movhi
+ 230 0028 5A61     		str	r2, [r3, #20]
+ 231 002a 1A69     		ldr	r2, [r3, #16]
+ 232 002c 0577     		strb	r5, [r0, #28]
+ 233 002e 22F00B02 		bic	r2, r2, #11
+ 234 0032 24B1     		cbz	r4, .L28
+ 235 0034 42F00102 		orr	r2, r2, #1
+ 236 0038 1A61     		str	r2, [r3, #16]
+ 237 003a 2846     		mov	r0, r5
+ 238 003c 30BD     		pop	{r4, r5, pc}
+ 239              	.L28:
+ARM GAS  /tmp/ccNWu0Lf.s 			page 5
+
+
+ 240 003e 42F00302 		orr	r2, r2, #3
+ 241 0042 1A61     		str	r2, [r3, #16]
+ 242 0044 2046     		mov	r0, r4
+ 243 0046 30BD     		pop	{r4, r5, pc}
+ 244              	.L30:
+ 245 0048 0120     		movs	r0, #1
+ 246 004a 30BD     		pop	{r4, r5, pc}
+ 247              	.L31:
+ 248 004c 0220     		movs	r0, #2
+ 249 004e 30BD     		pop	{r4, r5, pc}
+ 251              		.section	.text.HAL_CEC_GetLastReceivedFrameSize,"ax",%progbits
+ 252              		.align	1
+ 253              		.global	HAL_CEC_GetLastReceivedFrameSize
+ 254              		.thumb
+ 255              		.thumb_func
+ 257              	HAL_CEC_GetLastReceivedFrameSize:
+ 258              		@ args = 0, pretend = 0, frame = 0
+ 259              		@ frame_needed = 0, uses_anonymous_args = 0
+ 260              		@ link register save eliminated.
+ 261 0000 408B     		ldrh	r0, [r0, #26]
+ 262 0002 7047     		bx	lr
+ 264              		.section	.text.HAL_CEC_ChangeRxBuffer,"ax",%progbits
+ 265              		.align	1
+ 266              		.global	HAL_CEC_ChangeRxBuffer
+ 267              		.thumb
+ 268              		.thumb_func
+ 270              	HAL_CEC_ChangeRxBuffer:
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273              		@ link register save eliminated.
+ 274 0000 0161     		str	r1, [r0, #16]
+ 275 0002 7047     		bx	lr
+ 277              		.section	.text.HAL_CEC_TxCpltCallback,"ax",%progbits
+ 278              		.align	1
+ 279              		.weak	HAL_CEC_TxCpltCallback
+ 280              		.thumb
+ 281              		.thumb_func
+ 283              	HAL_CEC_TxCpltCallback:
+ 284              		@ args = 0, pretend = 0, frame = 0
+ 285              		@ frame_needed = 0, uses_anonymous_args = 0
+ 286              		@ link register save eliminated.
+ 287 0000 7047     		bx	lr
+ 289              		.section	.text.HAL_CEC_RxCpltCallback,"ax",%progbits
+ 290              		.align	1
+ 291              		.weak	HAL_CEC_RxCpltCallback
+ 292              		.thumb
+ 293              		.thumb_func
+ 295              	HAL_CEC_RxCpltCallback:
+ 296              		@ args = 0, pretend = 0, frame = 0
+ 297              		@ frame_needed = 0, uses_anonymous_args = 0
+ 298              		@ link register save eliminated.
+ 299 0000 7047     		bx	lr
+ 301              		.section	.text.HAL_CEC_ErrorCallback,"ax",%progbits
+ 302              		.align	1
+ 303              		.weak	HAL_CEC_ErrorCallback
+ 304              		.thumb
+ 305              		.thumb_func
+ARM GAS  /tmp/ccNWu0Lf.s 			page 6
+
+
+ 307              	HAL_CEC_ErrorCallback:
+ 308              		@ args = 0, pretend = 0, frame = 0
+ 309              		@ frame_needed = 0, uses_anonymous_args = 0
+ 310              		@ link register save eliminated.
+ 311 0000 7047     		bx	lr
+ 313              		.section	.text.HAL_CEC_IRQHandler,"ax",%progbits
+ 314              		.align	1
+ 315              		.global	HAL_CEC_IRQHandler
+ 316              		.thumb
+ 317              		.thumb_func
+ 319              	HAL_CEC_IRQHandler:
+ 320              		@ args = 0, pretend = 0, frame = 0
+ 321              		@ frame_needed = 0, uses_anonymous_args = 0
+ 322 0000 0368     		ldr	r3, [r0]
+ 323 0002 10B5     		push	{r4, lr}
+ 324 0004 D968     		ldr	r1, [r3, #12]
+ 325 0006 1A69     		ldr	r2, [r3, #16]
+ 326 0008 01F07F01 		and	r1, r1, #127
+ 327 000c 5207     		lsls	r2, r2, #29
+ 328 000e 0446     		mov	r4, r0
+ 329 0010 0162     		str	r1, [r0, #32]
+ 330 0012 09D5     		bpl	.L38
+ 331 0014 1A69     		ldr	r2, [r3, #16]
+ 332 0016 1869     		ldr	r0, [r3, #16]
+ 333 0018 02F00202 		and	r2, r2, #2
+ 334 001c 62F00702 		orn	r2, r2, #7
+ 335 0020 0240     		ands	r2, r2, r0
+ 336 0022 1A61     		str	r2, [r3, #16]
+ 337 0024 2022     		movs	r2, #32
+ 338 0026 6277     		strb	r2, [r4, #29]
+ 339              	.L38:
+ 340 0028 1A69     		ldr	r2, [r3, #16]
+ 341 002a 5006     		lsls	r0, r2, #25
+ 342 002c 0FD5     		bpl	.L39
+ 343 002e 1A69     		ldr	r2, [r3, #16]
+ 344 0030 1869     		ldr	r0, [r3, #16]
+ 345 0032 02F00202 		and	r2, r2, #2
+ 346 0036 62F04302 		orn	r2, r2, #67
+ 347 003a 0240     		ands	r2, r2, r0
+ 348 003c 1A61     		str	r2, [r3, #16]
+ 349 003e 628B     		ldrh	r2, [r4, #26]
+ 350 0040 2369     		ldr	r3, [r4, #16]
+ 351 0042 9B1A     		subs	r3, r3, r2
+ 352 0044 2361     		str	r3, [r4, #16]
+ 353 0046 0023     		movs	r3, #0
+ 354 0048 6383     		strh	r3, [r4, #26]	@ movhi
+ 355 004a 2023     		movs	r3, #32
+ 356 004c A377     		strb	r3, [r4, #30]
+ 357              	.L39:
+ 358 004e 11B1     		cbz	r1, .L40
+ 359 0050 2046     		mov	r0, r4
+ 360 0052 FFF7FEFF 		bl	HAL_CEC_ErrorCallback
+ 361              	.L40:
+ 362 0056 2368     		ldr	r3, [r4]
+ 363 0058 1A69     		ldr	r2, [r3, #16]
+ 364 005a 1207     		lsls	r2, r2, #28
+ 365 005c 24D5     		bpl	.L41
+ARM GAS  /tmp/ccNWu0Lf.s 			page 7
+
+
+ 366 005e 627F     		ldrb	r2, [r4, #29]	@ zero_extendqisi2
+ 367 0060 212A     		cmp	r2, #33
+ 368 0062 02D0     		beq	.L42
+ 369 0064 1A69     		ldr	r2, [r3, #16]
+ 370 0066 D007     		lsls	r0, r2, #31
+ 371 0068 1ED5     		bpl	.L41
+ 372              	.L42:
+ 373 006a 228B     		ldrh	r2, [r4, #24]
+ 374 006c 4AB9     		cbnz	r2, .L43
+ 375 006e 1A69     		ldr	r2, [r3, #16]
+ 376 0070 2046     		mov	r0, r4
+ 377 0072 22F00B02 		bic	r2, r2, #11
+ 378 0076 1A61     		str	r2, [r3, #16]
+ 379 0078 2023     		movs	r3, #32
+ 380 007a 6377     		strb	r3, [r4, #29]
+ 381 007c FFF7FEFF 		bl	HAL_CEC_TxCpltCallback
+ 382 0080 12E0     		b	.L41
+ 383              	.L43:
+ 384 0082 6169     		ldr	r1, [r4, #20]
+ 385 0084 013A     		subs	r2, r2, #1
+ 386 0086 481C     		adds	r0, r1, #1
+ 387 0088 92B2     		uxth	r2, r2
+ 388 008a 2283     		strh	r2, [r4, #24]	@ movhi
+ 389 008c 6061     		str	r0, [r4, #20]
+ 390 008e 0978     		ldrb	r1, [r1]	@ zero_extendqisi2
+ 391 0090 5961     		str	r1, [r3, #20]
+ 392 0092 2AB9     		cbnz	r2, .L44
+ 393 0094 1A69     		ldr	r2, [r3, #16]
+ 394 0096 22F00B02 		bic	r2, r2, #11
+ 395 009a 42F00202 		orr	r2, r2, #2
+ 396 009e 02E0     		b	.L70
+ 397              	.L44:
+ 398 00a0 1A69     		ldr	r2, [r3, #16]
+ 399 00a2 22F00B02 		bic	r2, r2, #11
+ 400              	.L70:
+ 401 00a6 1A61     		str	r2, [r3, #16]
+ 402              	.L41:
+ 403 00a8 2268     		ldr	r2, [r4]
+ 404 00aa 1369     		ldr	r3, [r2, #16]
+ 405 00ac 1906     		lsls	r1, r3, #24
+ 406 00ae 1DD5     		bpl	.L37
+ 407 00b0 638B     		ldrh	r3, [r4, #26]
+ 408 00b2 0BB9     		cbnz	r3, .L47
+ 409 00b4 2221     		movs	r1, #34
+ 410 00b6 A177     		strb	r1, [r4, #30]
+ 411              	.L47:
+ 412 00b8 A17F     		ldrb	r1, [r4, #30]	@ zero_extendqisi2
+ 413 00ba 2229     		cmp	r1, #34
+ 414 00bc 16D1     		bne	.L37
+ 415 00be 0133     		adds	r3, r3, #1
+ 416 00c0 1169     		ldr	r1, [r2, #16]
+ 417 00c2 0B48     		ldr	r0, .L71
+ 418 00c4 6383     		strh	r3, [r4, #26]	@ movhi
+ 419 00c6 2369     		ldr	r3, [r4, #16]
+ 420 00c8 9269     		ldr	r2, [r2, #24]
+ 421 00ca 0160     		str	r1, [r0]
+ 422 00cc 581C     		adds	r0, r3, #1
+ARM GAS  /tmp/ccNWu0Lf.s 			page 8
+
+
+ 423 00ce 2061     		str	r0, [r4, #16]
+ 424 00d0 1A70     		strb	r2, [r3]
+ 425 00d2 2268     		ldr	r2, [r4]
+ 426 00d4 1369     		ldr	r3, [r2, #16]
+ 427 00d6 23F0B003 		bic	r3, r3, #176
+ 428 00da 1361     		str	r3, [r2, #16]
+ 429 00dc 8B06     		lsls	r3, r1, #26
+ 430 00de 05D5     		bpl	.L37
+ 431 00e0 2023     		movs	r3, #32
+ 432 00e2 A377     		strb	r3, [r4, #30]
+ 433 00e4 2046     		mov	r0, r4
+ 434 00e6 618B     		ldrh	r1, [r4, #26]
+ 435 00e8 FFF7FEFF 		bl	HAL_CEC_RxCpltCallback
+ 436              	.L37:
+ 437 00ec 10BD     		pop	{r4, pc}
+ 438              	.L72:
+ 439 00ee 00BF     		.align	2
+ 440              	.L71:
+ 441 00f0 00000000 		.word	.LANCHOR0
+ 443              		.section	.text.HAL_CEC_GetState,"ax",%progbits
+ 444              		.align	1
+ 445              		.global	HAL_CEC_GetState
+ 446              		.thumb
+ 447              		.thumb_func
+ 449              	HAL_CEC_GetState:
+ 450              		@ args = 0, pretend = 0, frame = 0
+ 451              		@ frame_needed = 0, uses_anonymous_args = 0
+ 452              		@ link register save eliminated.
+ 453 0000 827F     		ldrb	r2, [r0, #30]	@ zero_extendqisi2
+ 454 0002 407F     		ldrb	r0, [r0, #29]	@ zero_extendqisi2
+ 455 0004 1043     		orrs	r0, r0, r2
+ 456 0006 7047     		bx	lr
+ 458              		.section	.text.HAL_CEC_GetError,"ax",%progbits
+ 459              		.align	1
+ 460              		.global	HAL_CEC_GetError
+ 461              		.thumb
+ 462              		.thumb_func
+ 464              	HAL_CEC_GetError:
+ 465              		@ args = 0, pretend = 0, frame = 0
+ 466              		@ frame_needed = 0, uses_anonymous_args = 0
+ 467              		@ link register save eliminated.
+ 468 0000 006A     		ldr	r0, [r0, #32]
+ 469 0002 7047     		bx	lr
+ 471              		.section	.bss.temp.7167,"aw",%nobits
+ 472              		.align	2
+ 473              		.set	.LANCHOR0,. + 0
+ 476              	temp.7167:
+ 477 0000 00000000 		.space	4
+ 478              		.ident	"GCC: (15:4.9.3+svn231177-1) 4.9.3 20150529 (prerelease)"
+ARM GAS  /tmp/ccNWu0Lf.s 			page 9
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32f1xx_hal_cec.c
+     /tmp/ccNWu0Lf.s:16     .text.HAL_CEC_SetDeviceAddress:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:21     .text.HAL_CEC_SetDeviceAddress:0000000000000000 HAL_CEC_SetDeviceAddress
+     /tmp/ccNWu0Lf.s:68     .text.HAL_CEC_SetDeviceAddress:0000000000000058 $d
+     /tmp/ccNWu0Lf.s:71     .text.HAL_CEC_MspInit:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:76     .text.HAL_CEC_MspInit:0000000000000000 HAL_CEC_MspInit
+     /tmp/ccNWu0Lf.s:83     .text.HAL_CEC_Init:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:88     .text.HAL_CEC_Init:0000000000000000 HAL_CEC_Init
+     /tmp/ccNWu0Lf.s:151    .text.HAL_CEC_Init:0000000000000084 $d
+     /tmp/ccNWu0Lf.s:154    .text.HAL_CEC_MspDeInit:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:159    .text.HAL_CEC_MspDeInit:0000000000000000 HAL_CEC_MspDeInit
+     /tmp/ccNWu0Lf.s:166    .text.HAL_CEC_DeInit:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:171    .text.HAL_CEC_DeInit:0000000000000000 HAL_CEC_DeInit
+     /tmp/ccNWu0Lf.s:199    .text.HAL_CEC_DeInit:0000000000000030 $d
+     /tmp/ccNWu0Lf.s:202    .text.HAL_CEC_Transmit_IT:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:207    .text.HAL_CEC_Transmit_IT:0000000000000000 HAL_CEC_Transmit_IT
+     /tmp/ccNWu0Lf.s:252    .text.HAL_CEC_GetLastReceivedFrameSize:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:257    .text.HAL_CEC_GetLastReceivedFrameSize:0000000000000000 HAL_CEC_GetLastReceivedFrameSize
+     /tmp/ccNWu0Lf.s:265    .text.HAL_CEC_ChangeRxBuffer:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:270    .text.HAL_CEC_ChangeRxBuffer:0000000000000000 HAL_CEC_ChangeRxBuffer
+     /tmp/ccNWu0Lf.s:278    .text.HAL_CEC_TxCpltCallback:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:283    .text.HAL_CEC_TxCpltCallback:0000000000000000 HAL_CEC_TxCpltCallback
+     /tmp/ccNWu0Lf.s:290    .text.HAL_CEC_RxCpltCallback:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:295    .text.HAL_CEC_RxCpltCallback:0000000000000000 HAL_CEC_RxCpltCallback
+     /tmp/ccNWu0Lf.s:302    .text.HAL_CEC_ErrorCallback:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:307    .text.HAL_CEC_ErrorCallback:0000000000000000 HAL_CEC_ErrorCallback
+     /tmp/ccNWu0Lf.s:314    .text.HAL_CEC_IRQHandler:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:319    .text.HAL_CEC_IRQHandler:0000000000000000 HAL_CEC_IRQHandler
+     /tmp/ccNWu0Lf.s:441    .text.HAL_CEC_IRQHandler:00000000000000f0 $d
+     /tmp/ccNWu0Lf.s:444    .text.HAL_CEC_GetState:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:449    .text.HAL_CEC_GetState:0000000000000000 HAL_CEC_GetState
+     /tmp/ccNWu0Lf.s:459    .text.HAL_CEC_GetError:0000000000000000 $t
+     /tmp/ccNWu0Lf.s:464    .text.HAL_CEC_GetError:0000000000000000 HAL_CEC_GetError
+     /tmp/ccNWu0Lf.s:472    .bss.temp.7167:0000000000000000 $d
+     /tmp/ccNWu0Lf.s:476    .bss.temp.7167:0000000000000000 temp.7167
 
-NO UNDEFINED SYMBOLS
+UNDEFINED SYMBOLS
+HAL_RCC_GetPCLK1Freq

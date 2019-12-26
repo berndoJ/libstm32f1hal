@@ -1,367 +1,293 @@
-ARM GAS  /tmp/ccuWNtMR.s 			page 1
+ARM GAS  /tmp/ccKBqKKb.s 			page 1
 
 
-   1              		.cpu cortex-m3
-   2              		.eabi_attribute 20, 1
-   3              		.eabi_attribute 21, 1
-   4              		.eabi_attribute 23, 3
-   5              		.eabi_attribute 24, 1
-   6              		.eabi_attribute 25, 1
-   7              		.eabi_attribute 26, 1
-   8              		.eabi_attribute 30, 4
-   9              		.eabi_attribute 34, 1
-  10              		.eabi_attribute 18, 4
-  11              		.file	"stm32f1xx_ll_utils.c"
-  12              		.section	.text.UTILS_SetFlashLatency,"ax",%progbits
-  13              		.align	1
-  14              		.syntax unified
-  15              		.thumb
-  16              		.thumb_func
-  17              		.fpu softvfp
-  19              	UTILS_SetFlashLatency:
-  20              		@ args = 0, pretend = 0, frame = 0
-  21              		@ frame_needed = 0, uses_anonymous_args = 0
-  22              		@ link register save eliminated.
-  23 0000 B0B1     		cbz	r0, .L4
-  24 0002 0C4B     		ldr	r3, .L6
-  25 0004 9842     		cmp	r0, r3
-  26 0006 11D8     		bhi	.L5
-  27 0008 0B4B     		ldr	r3, .L6+4
-  28 000a 9842     		cmp	r0, r3
-  29 000c 94BF     		ite	ls
-  30 000e 0020     		movls	r0, #0
-  31 0010 0120     		movhi	r0, #1
-  32              	.L3:
-  33 0012 0A4A     		ldr	r2, .L6+8
-  34 0014 1368     		ldr	r3, [r2]
-  35 0016 23F00703 		bic	r3, r3, #7
-  36 001a 0343     		orrs	r3, r3, r0
-  37 001c 1360     		str	r3, [r2]
-  38 001e 1368     		ldr	r3, [r2]
-  39 0020 03F00703 		and	r3, r3, #7
-  40 0024 181A     		subs	r0, r3, r0
-  41 0026 18BF     		it	ne
-  42 0028 0120     		movne	r0, #1
-  43 002a 7047     		bx	lr
-  44              	.L5:
-  45 002c 0220     		movs	r0, #2
-  46 002e F0E7     		b	.L3
-  47              	.L4:
-  48 0030 0120     		movs	r0, #1
-  49 0032 7047     		bx	lr
-  50              	.L7:
-  51              		.align	2
-  52              	.L6:
-  53 0034 006CDC02 		.word	48000000
-  54 0038 00366E01 		.word	24000000
-  55 003c 00200240 		.word	1073881088
-  57              		.section	.text.UTILS_EnablePLLAndSwitchSystem,"ax",%progbits
-  58              		.align	1
-  59              		.syntax unified
-ARM GAS  /tmp/ccuWNtMR.s 			page 2
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f1xx_ll_utils.c"
+  15              		.section	.text.UTILS_EnablePLLAndSwitchSystem,"ax",%progbits
+  16              		.align	1
+  17              		.thumb
+  18              		.thumb_func
+  20              	UTILS_EnablePLLAndSwitchSystem:
+  21              		@ args = 0, pretend = 0, frame = 0
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23 0000 184B     		ldr	r3, .L8
+  24 0002 70B5     		push	{r4, r5, r6, lr}
+  25 0004 1E46     		mov	r6, r3
+  26 0006 1A68     		ldr	r2, [r3]
+  27 0008 42F08072 		orr	r2, r2, #16777216
+  28 000c 1A60     		str	r2, [r3]
+  29              	.L2:
+  30 000e 3368     		ldr	r3, [r6]
+  31 0010 144C     		ldr	r4, .L8
+  32 0012 9B01     		lsls	r3, r3, #6
+  33 0014 FBD5     		bpl	.L2
+  34 0016 6368     		ldr	r3, [r4, #4]
+  35 0018 0A68     		ldr	r2, [r1]
+  36 001a 23F0F003 		bic	r3, r3, #240
+  37 001e 1343     		orrs	r3, r3, r2
+  38 0020 6360     		str	r3, [r4, #4]
+  39 0022 6368     		ldr	r3, [r4, #4]
+  40 0024 23F00303 		bic	r3, r3, #3
+  41 0028 43F00203 		orr	r3, r3, #2
+  42 002c 6360     		str	r3, [r4, #4]
+  43              	.L3:
+  44 002e 7368     		ldr	r3, [r6, #4]
+  45 0030 0C4D     		ldr	r5, .L8
+  46 0032 03F00C03 		and	r3, r3, #12
+  47 0036 082B     		cmp	r3, #8
+  48 0038 F9D1     		bne	.L3
+  49 003a 6B68     		ldr	r3, [r5, #4]
+  50 003c C2F30312 		ubfx	r2, r2, #4, #4
+  51 0040 23F4E064 		bic	r4, r3, #1792
+  52 0044 4B68     		ldr	r3, [r1, #4]
+  53 0046 2343     		orrs	r3, r3, r4
+  54 0048 6B60     		str	r3, [r5, #4]
+  55 004a 6B68     		ldr	r3, [r5, #4]
+  56 004c 23F46054 		bic	r4, r3, #14336
+  57 0050 8B68     		ldr	r3, [r1, #8]
+  58 0052 2343     		orrs	r3, r3, r4
+ARM GAS  /tmp/ccKBqKKb.s 			page 2
 
 
-  60              		.thumb
-  61              		.thumb_func
-  62              		.fpu softvfp
-  64              	UTILS_EnablePLLAndSwitchSystem:
-  65              		@ args = 0, pretend = 0, frame = 0
-  66              		@ frame_needed = 0, uses_anonymous_args = 0
-  67 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
-  68 0004 224C     		ldr	r4, .L24
-  69 0006 234E     		ldr	r6, .L24+4
-  70 0008 6368     		ldr	r3, [r4, #4]
-  71 000a 234F     		ldr	r7, .L24+8
-  72 000c C3F30313 		ubfx	r3, r3, #4, #4
-  73 0010 17F80380 		ldrb	r8, [r7, r3]	@ zero_extendqisi2
-  74 0014 3368     		ldr	r3, [r6]
-  75 0016 0546     		mov	r5, r0
-  76 0018 03FA08F8 		lsl	r8, r3, r8
-  77 001c 8045     		cmp	r8, r0
-  78 001e 31D3     		bcc	.L9
-  79              	.L11:
-  80 0020 2368     		ldr	r3, [r4]
-  81 0022 43F08073 		orr	r3, r3, #16777216
-  82 0026 2360     		str	r3, [r4]
-  83              	.L10:
-  84 0028 2368     		ldr	r3, [r4]
-  85 002a 9B01     		lsls	r3, r3, #6
-  86 002c FCD5     		bpl	.L10
-  87 002e 6368     		ldr	r3, [r4, #4]
-  88 0030 0A68     		ldr	r2, [r1]
-  89 0032 23F0F003 		bic	r3, r3, #240
-  90 0036 1343     		orrs	r3, r3, r2
-  91 0038 6360     		str	r3, [r4, #4]
-  92 003a 6368     		ldr	r3, [r4, #4]
-  93 003c 23F00303 		bic	r3, r3, #3
-  94 0040 43F00203 		orr	r3, r3, #2
-  95 0044 6360     		str	r3, [r4, #4]
-  96              	.L13:
-  97 0046 6368     		ldr	r3, [r4, #4]
-  98 0048 03F00C03 		and	r3, r3, #12
-  99 004c 082B     		cmp	r3, #8
- 100 004e FAD1     		bne	.L13
- 101 0050 6368     		ldr	r3, [r4, #4]
- 102 0052 4A68     		ldr	r2, [r1, #4]
- 103 0054 23F4E063 		bic	r3, r3, #1792
- 104 0058 1343     		orrs	r3, r3, r2
- 105 005a 6360     		str	r3, [r4, #4]
- 106 005c 6368     		ldr	r3, [r4, #4]
- 107 005e 8A68     		ldr	r2, [r1, #8]
- 108 0060 23F46053 		bic	r3, r3, #14336
- 109 0064 1343     		orrs	r3, r3, r2
- 110 0066 A845     		cmp	r8, r5
- 111 0068 6360     		str	r3, [r4, #4]
- 112 006a 03D9     		bls	.L14
- 113 006c 2846     		mov	r0, r5
- 114 006e FFF7FEFF 		bl	UTILS_SetFlashLatency
- 115 0072 58B9     		cbnz	r0, .L17
- 116              	.L14:
- 117 0074 0B68     		ldr	r3, [r1]
-ARM GAS  /tmp/ccuWNtMR.s 			page 3
+  59 0054 6B60     		str	r3, [r5, #4]
+  60 0056 044B     		ldr	r3, .L8+4
+  61 0058 9B5C     		ldrb	r3, [r3, r2]	@ zero_extendqisi2
+  62 005a D840     		lsrs	r0, r0, r3
+  63 005c 034B     		ldr	r3, .L8+8
+  64 005e 1860     		str	r0, [r3]
+  65 0060 0020     		movs	r0, #0
+  66 0062 70BD     		pop	{r4, r5, r6, pc}
+  67              	.L9:
+  68              		.align	2
+  69              	.L8:
+  70 0064 00100240 		.word	1073876992
+  71 0068 00000000 		.word	AHBPrescTable
+  72 006c 00000000 		.word	SystemCoreClock
+  74              		.section	.text.LL_Init1msTick,"ax",%progbits
+  75              		.align	1
+  76              		.global	LL_Init1msTick
+  77              		.thumb
+  78              		.thumb_func
+  80              	LL_Init1msTick:
+  81              		@ args = 0, pretend = 0, frame = 0
+  82              		@ frame_needed = 0, uses_anonymous_args = 0
+  83              		@ link register save eliminated.
+  84 0000 4FF47A73 		mov	r3, #1000
+  85 0004 B0FBF3F0 		udiv	r0, r0, r3
+  86 0008 034B     		ldr	r3, .L11
+  87 000a 0022     		movs	r2, #0
+  88 000c 0138     		subs	r0, r0, #1
+  89 000e 5860     		str	r0, [r3, #4]
+  90 0010 9A60     		str	r2, [r3, #8]
+  91 0012 0522     		movs	r2, #5
+  92 0014 1A60     		str	r2, [r3]
+  93 0016 7047     		bx	lr
+  94              	.L12:
+  95              		.align	2
+  96              	.L11:
+  97 0018 10E000E0 		.word	-536813552
+  99              		.section	.text.LL_mDelay,"ax",%progbits
+ 100              		.align	1
+ 101              		.global	LL_mDelay
+ 102              		.thumb
+ 103              		.thumb_func
+ 105              	LL_mDelay:
+ 106              		@ args = 0, pretend = 0, frame = 8
+ 107              		@ frame_needed = 0, uses_anonymous_args = 0
+ 108              		@ link register save eliminated.
+ 109 0000 084B     		ldr	r3, .L24
+ 110 0002 82B0     		sub	sp, sp, #8
+ 111 0004 1B68     		ldr	r3, [r3]
+ 112 0006 421C     		adds	r2, r0, #1
+ 113 0008 0193     		str	r3, [sp, #4]
+ 114 000a 019B     		ldr	r3, [sp, #4]
+ 115 000c 00D0     		beq	.L16
+ 116 000e 0130     		adds	r0, r0, #1
+ 117              	.L16:
+ 118 0010 30B1     		cbz	r0, .L23
+ 119 0012 044B     		ldr	r3, .L24
+ARM GAS  /tmp/ccKBqKKb.s 			page 3
 
 
- 118 0076 0020     		movs	r0, #0
- 119 0078 C3F30313 		ubfx	r3, r3, #4, #4
- 120 007c FB5C     		ldrb	r3, [r7, r3]	@ zero_extendqisi2
- 121 007e DD40     		lsrs	r5, r5, r3
- 122 0080 3560     		str	r5, [r6]
- 123 0082 03E0     		b	.L17
- 124              	.L9:
- 125 0084 FFF7FEFF 		bl	UTILS_SetFlashLatency
- 126 0088 0028     		cmp	r0, #0
- 127 008a C9D0     		beq	.L11
- 128              	.L17:
- 129 008c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
- 130              	.L25:
- 131              		.align	2
- 132              	.L24:
- 133 0090 00100240 		.word	1073876992
- 134 0094 00000000 		.word	SystemCoreClock
- 135 0098 00000000 		.word	AHBPrescTable
- 137              		.section	.text.LL_Init1msTick,"ax",%progbits
- 138              		.align	1
- 139              		.global	LL_Init1msTick
- 140              		.syntax unified
- 141              		.thumb
- 142              		.thumb_func
- 143              		.fpu softvfp
- 145              	LL_Init1msTick:
- 146              		@ args = 0, pretend = 0, frame = 0
- 147              		@ frame_needed = 0, uses_anonymous_args = 0
- 148              		@ link register save eliminated.
- 149 0000 4FF47A73 		mov	r3, #1000
- 150 0004 B0FBF3F0 		udiv	r0, r0, r3
- 151 0008 0022     		movs	r2, #0
- 152 000a 034B     		ldr	r3, .L27
- 153 000c 0138     		subs	r0, r0, #1
- 154 000e 5860     		str	r0, [r3, #4]
- 155 0010 9A60     		str	r2, [r3, #8]
- 156 0012 0522     		movs	r2, #5
- 157 0014 1A60     		str	r2, [r3]
- 158 0016 7047     		bx	lr
- 159              	.L28:
- 160              		.align	2
- 161              	.L27:
- 162 0018 10E000E0 		.word	-536813552
- 164              		.section	.text.LL_mDelay,"ax",%progbits
- 165              		.align	1
- 166              		.global	LL_mDelay
- 167              		.syntax unified
- 168              		.thumb
- 169              		.thumb_func
- 170              		.fpu softvfp
- 172              	LL_mDelay:
- 173              		@ args = 0, pretend = 0, frame = 8
- 174              		@ frame_needed = 0, uses_anonymous_args = 0
- 175              		@ link register save eliminated.
- 176 0000 084B     		ldr	r3, .L39
- 177 0002 82B0     		sub	sp, sp, #8
- 178 0004 1B68     		ldr	r3, [r3]
-ARM GAS  /tmp/ccuWNtMR.s 			page 4
+ 120 0014 1B68     		ldr	r3, [r3]
+ 121 0016 DB03     		lsls	r3, r3, #15
+ 122 0018 48BF     		it	mi
+ 123 001a 00F1FF30 		addmi	r0, r0, #-1
+ 124 001e F7E7     		b	.L16
+ 125              	.L23:
+ 126 0020 02B0     		add	sp, sp, #8
+ 127              		@ sp needed
+ 128 0022 7047     		bx	lr
+ 129              	.L25:
+ 130              		.align	2
+ 131              	.L24:
+ 132 0024 10E000E0 		.word	-536813552
+ 134              		.section	.text.LL_SetSystemCoreClock,"ax",%progbits
+ 135              		.align	1
+ 136              		.global	LL_SetSystemCoreClock
+ 137              		.thumb
+ 138              		.thumb_func
+ 140              	LL_SetSystemCoreClock:
+ 141              		@ args = 0, pretend = 0, frame = 0
+ 142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 143              		@ link register save eliminated.
+ 144 0000 014B     		ldr	r3, .L27
+ 145 0002 1860     		str	r0, [r3]
+ 146 0004 7047     		bx	lr
+ 147              	.L28:
+ 148 0006 00BF     		.align	2
+ 149              	.L27:
+ 150 0008 00000000 		.word	SystemCoreClock
+ 152              		.section	.text.LL_PLL_ConfigSystemClock_HSI,"ax",%progbits
+ 153              		.align	1
+ 154              		.global	LL_PLL_ConfigSystemClock_HSI
+ 155              		.thumb
+ 156              		.thumb_func
+ 158              	LL_PLL_ConfigSystemClock_HSI:
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161 0000 134B     		ldr	r3, .L39
+ 162 0002 10B5     		push	{r4, lr}
+ 163 0004 1A68     		ldr	r2, [r3]
+ 164 0006 12F0007F 		tst	r2, #33554432
+ 165 000a 4FF00102 		mov	r2, #1
+ 166 000e 1CD1     		bne	.L36
+ 167 0010 4260     		str	r2, [r0, #4]
+ 168 0012 0268     		ldr	r2, [r0]
+ 169 0014 0F4C     		ldr	r4, .L39+4
+ 170 0016 900C     		lsrs	r0, r2, #18
+ 171 0018 0230     		adds	r0, r0, #2
+ 172 001a 6043     		muls	r0, r4, r0
+ 173 001c 1C68     		ldr	r4, [r3]
+ 174 001e A407     		lsls	r4, r4, #30
+ 175 0020 06D4     		bmi	.L34
+ 176 0022 1C68     		ldr	r4, [r3]
+ 177 0024 44F00104 		orr	r4, r4, #1
+ 178 0028 1C60     		str	r4, [r3]
+ 179              	.L32:
+ 180 002a 1C68     		ldr	r4, [r3]
+ARM GAS  /tmp/ccKBqKKb.s 			page 4
 
 
- 179 0006 411C     		adds	r1, r0, #1
- 180 0008 0193     		str	r3, [sp, #4]
- 181 000a 019B     		ldr	r3, [sp, #4]
- 182 000c 054B     		ldr	r3, .L39
- 183 000e 18BF     		it	ne
- 184 0010 0130     		addne	r0, r0, #1
- 185              	.L32:
- 186 0012 08B9     		cbnz	r0, .L33
- 187 0014 02B0     		add	sp, sp, #8
- 188              		@ sp needed
- 189 0016 7047     		bx	lr
- 190              	.L33:
- 191 0018 1A68     		ldr	r2, [r3]
- 192 001a D203     		lsls	r2, r2, #15
- 193 001c 48BF     		it	mi
- 194 001e 00F1FF30 		addmi	r0, r0, #-1
- 195 0022 F6E7     		b	.L32
+ 181 002c A407     		lsls	r4, r4, #30
+ 182 002e FCD5     		bpl	.L32
+ 183              	.L34:
+ 184 0030 5C68     		ldr	r4, [r3, #4]
+ 185 0032 24F47C14 		bic	r4, r4, #4128768
+ 186 0036 2243     		orrs	r2, r2, r4
+ 187 0038 5A60     		str	r2, [r3, #4]
+ 188 003a DA6A     		ldr	r2, [r3, #44]
+ 189 003c BDE81040 		pop	{r4, lr}
+ 190 0040 22F00F02 		bic	r2, r2, #15
+ 191 0044 DA62     		str	r2, [r3, #44]
+ 192 0046 FFF7FEBF 		b	UTILS_EnablePLLAndSwitchSystem
+ 193              	.L36:
+ 194 004a 1046     		mov	r0, r2
+ 195 004c 10BD     		pop	{r4, pc}
  196              	.L40:
- 197              		.align	2
+ 197 004e 00BF     		.align	2
  198              	.L39:
- 199 0024 10E000E0 		.word	-536813552
- 201              		.section	.text.LL_SetSystemCoreClock,"ax",%progbits
- 202              		.align	1
- 203              		.global	LL_SetSystemCoreClock
- 204              		.syntax unified
+ 199 0050 00100240 		.word	1073876992
+ 200 0054 00093D00 		.word	4000000
+ 202              		.section	.text.LL_PLL_ConfigSystemClock_HSE,"ax",%progbits
+ 203              		.align	1
+ 204              		.global	LL_PLL_ConfigSystemClock_HSE
  205              		.thumb
  206              		.thumb_func
- 207              		.fpu softvfp
- 209              	LL_SetSystemCoreClock:
- 210              		@ args = 0, pretend = 0, frame = 0
- 211              		@ frame_needed = 0, uses_anonymous_args = 0
- 212              		@ link register save eliminated.
- 213 0000 014B     		ldr	r3, .L42
- 214 0002 1860     		str	r0, [r3]
- 215 0004 7047     		bx	lr
- 216              	.L43:
- 217 0006 00BF     		.align	2
- 218              	.L42:
- 219 0008 00000000 		.word	SystemCoreClock
- 221              		.section	.text.LL_PLL_ConfigSystemClock_HSI,"ax",%progbits
- 222              		.align	1
- 223              		.global	LL_PLL_ConfigSystemClock_HSI
- 224              		.syntax unified
- 225              		.thumb
- 226              		.thumb_func
- 227              		.fpu softvfp
- 229              	LL_PLL_ConfigSystemClock_HSI:
- 230              		@ args = 0, pretend = 0, frame = 0
- 231              		@ frame_needed = 0, uses_anonymous_args = 0
- 232              		@ link register save eliminated.
- 233 0000 114B     		ldr	r3, .L54
- 234 0002 30B4     		push	{r4, r5}
- 235 0004 1A68     		ldr	r2, [r3]
- 236 0006 9501     		lsls	r5, r2, #6
- 237 0008 1AD4     		bmi	.L51
- 238 000a 4FF40032 		mov	r2, #131072
- 239 000e 0568     		ldr	r5, [r0]
-ARM GAS  /tmp/ccuWNtMR.s 			page 5
+ 208              	LL_PLL_ConfigSystemClock_HSE:
+ 209              		@ args = 0, pretend = 0, frame = 0
+ 210              		@ frame_needed = 0, uses_anonymous_args = 0
+ 211 0000 70B5     		push	{r4, r5, r6, lr}
+ 212 0002 1B4C     		ldr	r4, .L54
+ 213 0004 2568     		ldr	r5, [r4]
+ 214 0006 AD01     		lsls	r5, r5, #6
+ 215 0008 2FD4     		bmi	.L50
+ 216 000a 5568     		ldr	r5, [r2, #4]
+ 217 000c 1668     		ldr	r6, [r2]
+ 218 000e 6A1C     		adds	r2, r5, #1
+ 219 0010 B0FBF2F0 		udiv	r0, r0, r2
+ 220 0014 B20C     		lsrs	r2, r6, #18
+ 221 0016 0232     		adds	r2, r2, #2
+ 222 0018 5043     		muls	r0, r2, r0
+ 223 001a 2268     		ldr	r2, [r4]
+ 224 001c 9203     		lsls	r2, r2, #14
+ 225 001e 0ED4     		bmi	.L48
+ 226 0020 2268     		ldr	r2, [r4]
+ 227 0022 0129     		cmp	r1, #1
+ 228 0024 0CBF     		ite	eq
+ 229 0026 42F48022 		orreq	r2, r2, #262144
+ 230 002a 22F48022 		bicne	r2, r2, #262144
+ 231 002e 2260     		str	r2, [r4]
+ 232 0030 2268     		ldr	r2, [r4]
+ 233 0032 42F48032 		orr	r2, r2, #65536
+ 234 0036 2260     		str	r2, [r4]
+ 235              	.L46:
+ 236 0038 2268     		ldr	r2, [r4]
+ 237 003a 9103     		lsls	r1, r2, #14
+ 238 003c FCD5     		bpl	.L46
+ 239              	.L48:
+ARM GAS  /tmp/ccKBqKKb.s 			page 5
 
 
- 240 0010 4260     		str	r2, [r0, #4]
- 241 0012 1A68     		ldr	r2, [r3]
- 242 0014 A80C     		lsrs	r0, r5, #18
- 243 0016 841C     		adds	r4, r0, #2
- 244 0018 0C48     		ldr	r0, .L54+4
- 245 001a 9207     		lsls	r2, r2, #30
- 246 001c 00FB04F0 		mul	r0, r0, r4
- 247 0020 06D4     		bmi	.L49
- 248 0022 1C68     		ldr	r4, [r3]
- 249 0024 44F00104 		orr	r4, r4, #1
- 250 0028 1C60     		str	r4, [r3]
- 251              	.L47:
- 252 002a 1A68     		ldr	r2, [r3]
- 253 002c 9407     		lsls	r4, r2, #30
- 254 002e FCD5     		bpl	.L47
- 255              	.L49:
- 256 0030 5A68     		ldr	r2, [r3, #4]
- 257 0032 22F47C12 		bic	r2, r2, #4128768
- 258 0036 2A43     		orrs	r2, r2, r5
- 259 0038 5A60     		str	r2, [r3, #4]
- 260 003a 30BC     		pop	{r4, r5}
- 261 003c FFF7FEBF 		b	UTILS_EnablePLLAndSwitchSystem
- 262              	.L51:
- 263 0040 0120     		movs	r0, #1
- 264 0042 30BC     		pop	{r4, r5}
- 265 0044 7047     		bx	lr
- 266              	.L55:
- 267 0046 00BF     		.align	2
- 268              	.L54:
- 269 0048 00100240 		.word	1073876992
- 270 004c 00093D00 		.word	4000000
- 272              		.section	.text.LL_PLL_ConfigSystemClock_HSE,"ax",%progbits
- 273              		.align	1
- 274              		.global	LL_PLL_ConfigSystemClock_HSE
- 275              		.syntax unified
- 276              		.thumb
- 277              		.thumb_func
- 278              		.fpu softvfp
- 280              	LL_PLL_ConfigSystemClock_HSE:
- 281              		@ args = 0, pretend = 0, frame = 0
- 282              		@ frame_needed = 0, uses_anonymous_args = 0
- 283              		@ link register save eliminated.
- 284 0000 F0B4     		push	{r4, r5, r6, r7}
- 285 0002 184C     		ldr	r4, .L69
- 286 0004 2568     		ldr	r5, [r4]
- 287 0006 AD01     		lsls	r5, r5, #6
- 288 0008 29D4     		bmi	.L65
- 289 000a 5668     		ldr	r6, [r2, #4]
- 290 000c 1768     		ldr	r7, [r2]
- 291 000e 750C     		lsrs	r5, r6, #17
- 292 0010 0135     		adds	r5, r5, #1
- 293 0012 B0FBF5F0 		udiv	r0, r0, r5
- 294 0016 2268     		ldr	r2, [r4]
- 295 0018 BD0C     		lsrs	r5, r7, #18
- 296 001a 0235     		adds	r5, r5, #2
- 297 001c 9203     		lsls	r2, r2, #14
- 298 001e 05FB00F0 		mul	r0, r5, r0
-ARM GAS  /tmp/ccuWNtMR.s 			page 6
-
-
- 299 0022 0ED4     		bmi	.L63
- 300 0024 2268     		ldr	r2, [r4]
- 301 0026 0129     		cmp	r1, #1
- 302 0028 0CBF     		ite	eq
- 303 002a 42F48022 		orreq	r2, r2, #262144
- 304 002e 22F48022 		bicne	r2, r2, #262144
- 305 0032 2260     		str	r2, [r4]
- 306 0034 2268     		ldr	r2, [r4]
- 307 0036 42F48032 		orr	r2, r2, #65536
- 308 003a 2260     		str	r2, [r4]
- 309              	.L61:
- 310 003c 2268     		ldr	r2, [r4]
- 311 003e 9103     		lsls	r1, r2, #14
- 312 0040 FCD5     		bpl	.L61
- 313              	.L63:
- 314 0042 6268     		ldr	r2, [r4, #4]
- 315 0044 06F44036 		and	r6, r6, #196608
- 316 0048 22F47C12 		bic	r2, r2, #4128768
- 317 004c 42F48032 		orr	r2, r2, #65536
- 318 0050 3A43     		orrs	r2, r2, r7
- 319 0052 3243     		orrs	r2, r2, r6
- 320 0054 6260     		str	r2, [r4, #4]
- 321 0056 1946     		mov	r1, r3
- 322 0058 F0BC     		pop	{r4, r5, r6, r7}
- 323 005a FFF7FEBF 		b	UTILS_EnablePLLAndSwitchSystem
- 324              	.L65:
- 325 005e 0120     		movs	r0, #1
- 326 0060 F0BC     		pop	{r4, r5, r6, r7}
- 327 0062 7047     		bx	lr
- 328              	.L70:
- 329              		.align	2
- 330              	.L69:
- 331 0064 00100240 		.word	1073876992
- 333              		.ident	"GCC: (15:6.3.1+svn253039-1build1) 6.3.1 20170620"
-ARM GAS  /tmp/ccuWNtMR.s 			page 7
+ 240 003e 6268     		ldr	r2, [r4, #4]
+ 241 0040 46F48036 		orr	r6, r6, #65536
+ 242 0044 22F47C12 		bic	r2, r2, #4128768
+ 243 0048 05F44031 		and	r1, r5, #196608
+ 244 004c 3243     		orrs	r2, r2, r6
+ 245 004e 0A43     		orrs	r2, r2, r1
+ 246 0050 6260     		str	r2, [r4, #4]
+ 247 0052 E26A     		ldr	r2, [r4, #44]
+ 248 0054 05F00F05 		and	r5, r5, #15
+ 249 0058 22F00F02 		bic	r2, r2, #15
+ 250 005c 1543     		orrs	r5, r5, r2
+ 251 005e E562     		str	r5, [r4, #44]
+ 252 0060 1946     		mov	r1, r3
+ 253 0062 BDE87040 		pop	{r4, r5, r6, lr}
+ 254 0066 FFF7FEBF 		b	UTILS_EnablePLLAndSwitchSystem
+ 255              	.L50:
+ 256 006a 0120     		movs	r0, #1
+ 257 006c 70BD     		pop	{r4, r5, r6, pc}
+ 258              	.L55:
+ 259 006e 00BF     		.align	2
+ 260              	.L54:
+ 261 0070 00100240 		.word	1073876992
+ 263              		.ident	"GCC: (15:4.9.3+svn231177-1) 4.9.3 20150529 (prerelease)"
+ARM GAS  /tmp/ccKBqKKb.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32f1xx_ll_utils.c
-     /tmp/ccuWNtMR.s:13     .text.UTILS_SetFlashLatency:0000000000000000 $t
-     /tmp/ccuWNtMR.s:19     .text.UTILS_SetFlashLatency:0000000000000000 UTILS_SetFlashLatency
-     /tmp/ccuWNtMR.s:53     .text.UTILS_SetFlashLatency:0000000000000034 $d
-     /tmp/ccuWNtMR.s:58     .text.UTILS_EnablePLLAndSwitchSystem:0000000000000000 $t
-     /tmp/ccuWNtMR.s:64     .text.UTILS_EnablePLLAndSwitchSystem:0000000000000000 UTILS_EnablePLLAndSwitchSystem
-     /tmp/ccuWNtMR.s:133    .text.UTILS_EnablePLLAndSwitchSystem:0000000000000090 $d
-     /tmp/ccuWNtMR.s:138    .text.LL_Init1msTick:0000000000000000 $t
-     /tmp/ccuWNtMR.s:145    .text.LL_Init1msTick:0000000000000000 LL_Init1msTick
-     /tmp/ccuWNtMR.s:162    .text.LL_Init1msTick:0000000000000018 $d
-     /tmp/ccuWNtMR.s:165    .text.LL_mDelay:0000000000000000 $t
-     /tmp/ccuWNtMR.s:172    .text.LL_mDelay:0000000000000000 LL_mDelay
-     /tmp/ccuWNtMR.s:199    .text.LL_mDelay:0000000000000024 $d
-     /tmp/ccuWNtMR.s:202    .text.LL_SetSystemCoreClock:0000000000000000 $t
-     /tmp/ccuWNtMR.s:209    .text.LL_SetSystemCoreClock:0000000000000000 LL_SetSystemCoreClock
-     /tmp/ccuWNtMR.s:219    .text.LL_SetSystemCoreClock:0000000000000008 $d
-     /tmp/ccuWNtMR.s:222    .text.LL_PLL_ConfigSystemClock_HSI:0000000000000000 $t
-     /tmp/ccuWNtMR.s:229    .text.LL_PLL_ConfigSystemClock_HSI:0000000000000000 LL_PLL_ConfigSystemClock_HSI
-     /tmp/ccuWNtMR.s:269    .text.LL_PLL_ConfigSystemClock_HSI:0000000000000048 $d
-     /tmp/ccuWNtMR.s:273    .text.LL_PLL_ConfigSystemClock_HSE:0000000000000000 $t
-     /tmp/ccuWNtMR.s:280    .text.LL_PLL_ConfigSystemClock_HSE:0000000000000000 LL_PLL_ConfigSystemClock_HSE
-     /tmp/ccuWNtMR.s:331    .text.LL_PLL_ConfigSystemClock_HSE:0000000000000064 $d
+     /tmp/ccKBqKKb.s:16     .text.UTILS_EnablePLLAndSwitchSystem:0000000000000000 $t
+     /tmp/ccKBqKKb.s:20     .text.UTILS_EnablePLLAndSwitchSystem:0000000000000000 UTILS_EnablePLLAndSwitchSystem
+     /tmp/ccKBqKKb.s:70     .text.UTILS_EnablePLLAndSwitchSystem:0000000000000064 $d
+     /tmp/ccKBqKKb.s:75     .text.LL_Init1msTick:0000000000000000 $t
+     /tmp/ccKBqKKb.s:80     .text.LL_Init1msTick:0000000000000000 LL_Init1msTick
+     /tmp/ccKBqKKb.s:97     .text.LL_Init1msTick:0000000000000018 $d
+     /tmp/ccKBqKKb.s:100    .text.LL_mDelay:0000000000000000 $t
+     /tmp/ccKBqKKb.s:105    .text.LL_mDelay:0000000000000000 LL_mDelay
+     /tmp/ccKBqKKb.s:132    .text.LL_mDelay:0000000000000024 $d
+     /tmp/ccKBqKKb.s:135    .text.LL_SetSystemCoreClock:0000000000000000 $t
+     /tmp/ccKBqKKb.s:140    .text.LL_SetSystemCoreClock:0000000000000000 LL_SetSystemCoreClock
+     /tmp/ccKBqKKb.s:150    .text.LL_SetSystemCoreClock:0000000000000008 $d
+     /tmp/ccKBqKKb.s:153    .text.LL_PLL_ConfigSystemClock_HSI:0000000000000000 $t
+     /tmp/ccKBqKKb.s:158    .text.LL_PLL_ConfigSystemClock_HSI:0000000000000000 LL_PLL_ConfigSystemClock_HSI
+     /tmp/ccKBqKKb.s:199    .text.LL_PLL_ConfigSystemClock_HSI:0000000000000050 $d
+     /tmp/ccKBqKKb.s:203    .text.LL_PLL_ConfigSystemClock_HSE:0000000000000000 $t
+     /tmp/ccKBqKKb.s:208    .text.LL_PLL_ConfigSystemClock_HSE:0000000000000000 LL_PLL_ConfigSystemClock_HSE
+     /tmp/ccKBqKKb.s:261    .text.LL_PLL_ConfigSystemClock_HSE:0000000000000070 $d
 
 UNDEFINED SYMBOLS
-SystemCoreClock
 AHBPrescTable
+SystemCoreClock

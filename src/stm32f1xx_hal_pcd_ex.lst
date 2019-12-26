@@ -1,101 +1,25 @@
-ARM GAS  /tmp/ccWX8Cjz.s 			page 1
+ARM GAS  /tmp/ccvyAJIF.s 			page 1
 
 
-   1              		.cpu cortex-m3
-   2              		.eabi_attribute 20, 1
-   3              		.eabi_attribute 21, 1
-   4              		.eabi_attribute 23, 3
-   5              		.eabi_attribute 24, 1
-   6              		.eabi_attribute 25, 1
-   7              		.eabi_attribute 26, 1
-   8              		.eabi_attribute 30, 4
-   9              		.eabi_attribute 34, 1
-  10              		.eabi_attribute 18, 4
-  11              		.file	"stm32f1xx_hal_pcd_ex.c"
-  12              		.section	.text.HAL_PCDEx_PMAConfig,"ax",%progbits
-  13              		.align	1
-  14              		.global	HAL_PCDEx_PMAConfig
-  15              		.syntax unified
-  16              		.thumb
-  17              		.thumb_func
-  18              		.fpu softvfp
-  20              	HAL_PCDEx_PMAConfig:
-  21              		@ args = 0, pretend = 0, frame = 0
-  22              		@ frame_needed = 0, uses_anonymous_args = 0
-  23              		@ link register save eliminated.
-  24 0000 11F0800F 		tst	r1, #128
-  25 0004 1BBF     		ittet	ne
-  26 0006 01F00701 		andne	r1, r1, #7
-  27 000a 00EB4110 		addne	r0, r0, r1, lsl #5
-  28 000e 00EB4110 		addeq	r0, r0, r1, lsl #5
-  29 0012 2830     		addne	r0, r0, #40
-  30 0014 08BF     		it	eq
-  31 0016 00F59470 		addeq	r0, r0, #296
-  32 001a 1AB9     		cbnz	r2, .L4
-  33 001c 0273     		strb	r2, [r0, #12]
-  34 001e C380     		strh	r3, [r0, #6]	@ movhi
-  35              	.L5:
-  36 0020 0020     		movs	r0, #0
-  37 0022 7047     		bx	lr
-  38              	.L4:
-  39 0024 0122     		movs	r2, #1
-  40 0026 0381     		strh	r3, [r0, #8]	@ movhi
-  41 0028 1B0C     		lsrs	r3, r3, #16
-  42 002a 0273     		strb	r2, [r0, #12]
-  43 002c 4381     		strh	r3, [r0, #10]	@ movhi
-  44 002e F7E7     		b	.L5
-  46              		.section	.text.HAL_PCDEx_SetConnectionState,"ax",%progbits
-  47              		.align	1
-  48              		.weak	HAL_PCDEx_SetConnectionState
-  49              		.syntax unified
-  50              		.thumb
-  51              		.thumb_func
-  52              		.fpu softvfp
-  54              	HAL_PCDEx_SetConnectionState:
-  55              		@ args = 0, pretend = 0, frame = 0
-  56              		@ frame_needed = 0, uses_anonymous_args = 0
-  57              		@ link register save eliminated.
-  58 0000 7047     		bx	lr
-  60              		.section	.text.HAL_PCDEx_LPM_Callback,"ax",%progbits
-  61              		.align	1
-ARM GAS  /tmp/ccWX8Cjz.s 			page 2
-
-
-  62              		.weak	HAL_PCDEx_LPM_Callback
-  63              		.syntax unified
-  64              		.thumb
-  65              		.thumb_func
-  66              		.fpu softvfp
-  68              	HAL_PCDEx_LPM_Callback:
-  69              		@ args = 0, pretend = 0, frame = 0
-  70              		@ frame_needed = 0, uses_anonymous_args = 0
-  71              		@ link register save eliminated.
-  72 0000 7047     		bx	lr
-  74              		.section	.text.HAL_PCDEx_BCD_Callback,"ax",%progbits
-  75              		.align	1
-  76              		.weak	HAL_PCDEx_BCD_Callback
-  77              		.syntax unified
-  78              		.thumb
-  79              		.thumb_func
-  80              		.fpu softvfp
-  82              	HAL_PCDEx_BCD_Callback:
-  83              		@ args = 0, pretend = 0, frame = 0
-  84              		@ frame_needed = 0, uses_anonymous_args = 0
-  85              		@ link register save eliminated.
-  86 0000 7047     		bx	lr
-  88              		.ident	"GCC: (15:6.3.1+svn253039-1build1) 6.3.1 20170620"
-ARM GAS  /tmp/ccWX8Cjz.s 			page 3
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f1xx_hal_pcd_ex.c"
+  15              		.ident	"GCC: (15:4.9.3+svn231177-1) 4.9.3 20150529 (prerelease)"
+ARM GAS  /tmp/ccvyAJIF.s 			page 2
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32f1xx_hal_pcd_ex.c
-     /tmp/ccWX8Cjz.s:13     .text.HAL_PCDEx_PMAConfig:0000000000000000 $t
-     /tmp/ccWX8Cjz.s:20     .text.HAL_PCDEx_PMAConfig:0000000000000000 HAL_PCDEx_PMAConfig
-     /tmp/ccWX8Cjz.s:47     .text.HAL_PCDEx_SetConnectionState:0000000000000000 $t
-     /tmp/ccWX8Cjz.s:54     .text.HAL_PCDEx_SetConnectionState:0000000000000000 HAL_PCDEx_SetConnectionState
-     /tmp/ccWX8Cjz.s:61     .text.HAL_PCDEx_LPM_Callback:0000000000000000 $t
-     /tmp/ccWX8Cjz.s:68     .text.HAL_PCDEx_LPM_Callback:0000000000000000 HAL_PCDEx_LPM_Callback
-     /tmp/ccWX8Cjz.s:75     .text.HAL_PCDEx_BCD_Callback:0000000000000000 $t
-     /tmp/ccWX8Cjz.s:82     .text.HAL_PCDEx_BCD_Callback:0000000000000000 HAL_PCDEx_BCD_Callback
 
 NO UNDEFINED SYMBOLS
